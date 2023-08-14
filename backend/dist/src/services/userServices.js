@@ -16,7 +16,8 @@ exports.loginUser = exports.registerUser = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const User_1 = require("../models/User");
-const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const express_async_handler_1 = __importDefault(require("express-async-handler"));
+exports.registerUser = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, name, password } = req.body;
     if (yield User_1.User.findOne({ email })) {
         throw new Error("Email in use already.");
@@ -35,11 +36,11 @@ const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         });
     }
     else {
+        res.status(400);
         throw new Error("Invalid user data");
     }
-});
-exports.registerUser = registerUser;
-const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+}));
+exports.loginUser = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     const user = yield User_1.User.findOne({ email });
     if (user && (yield bcrypt_1.default.compare(password, user.password))) {
@@ -52,16 +53,15 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
     }
     else {
+        res.status(400);
         throw new Error("Invalid Credentials");
     }
-});
-exports.loginUser = loginUser;
+}));
 const hashPassword = (password) => __awaiter(void 0, void 0, void 0, function* () {
     const salt = yield bcrypt_1.default.genSalt(10);
     const hashedPassword = yield bcrypt_1.default.hash(password, salt);
     return hashedPassword;
 });
-process.env.JWT_SECRET;
 const generateToken = (id) => {
     return jsonwebtoken_1.default.sign({ id }, process.env.JWT_SECRET, {
         expiresIn: "2d",

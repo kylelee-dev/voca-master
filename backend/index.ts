@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import userRoutes from "./src/routes/userRoutes";
 import dbConnect from "./src/db/db";
+import { errorHandler, notFound } from "./src/middleware/errorHandler";
 dotenv.config();
 
 const app: Express = express();
@@ -18,6 +19,9 @@ app.use("/user", userRoutes);
 
 const dbConnection = dbConnect();
 
+app.use(notFound);
+
+app.use(errorHandler);
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
