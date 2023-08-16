@@ -7,6 +7,7 @@ export const registerUser = asyncHandler(
   async (req: Request, res: Response) => {
     const { email, name, password } = req.body;
     if (await User.findOne({ email })) {
+      res.status(400);
       throw new Error("Email in use already.");
     }
 

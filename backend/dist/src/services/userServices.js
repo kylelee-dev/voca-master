@@ -20,6 +20,7 @@ const express_async_handler_1 = __importDefault(require("express-async-handler")
 exports.registerUser = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, name, password } = req.body;
     if (yield User_1.User.findOne({ email })) {
+        res.status(400);
         throw new Error("Email in use already.");
     }
     const user = yield User_1.User.create({
