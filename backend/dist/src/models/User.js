@@ -6,5 +6,13 @@ const userSchema = new mongoose_1.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
+    subjects: {
+        type: Array,
+        default: [],
+    },
+}, {
+    timestamps: {
+        createdAt: "created_at",
+    },
 });
 exports.User = (0, mongoose_1.model)("User", userSchema);

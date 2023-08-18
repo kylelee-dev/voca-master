@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import userRoutes from "./src/routes/userRoutes";
+import subjectRoutes from "./src/routes/subjectRoutes";
 import dbConnect from "./src/db/db";
 import { errorHandler, notFound } from "./src/middleware/errorHandler";
 dotenv.config();
@@ -16,6 +17,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.use("/user", userRoutes);
+app.use("/subject", subjectRoutes);
 
 const dbConnection = dbConnect();
 
