@@ -15,8 +15,6 @@ export const getAllSubjects = asyncHandler(async (req, res) => {
 
 export const getSubject = asyncHandler(async (req, res) => {
   const id = req.params.id;
-  console.log(id);
-
   const subject = await Subject.find({
     _id: id,
   });

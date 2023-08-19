@@ -6,12 +6,13 @@ const wordSchema = new Schema(
       type: String,
       required: true,
     },
-    meanings: {
-      type: Array,
+    meaning: {
+      type: String,
       required: true,
     },
     description: {
       type: String,
+      default: "",
     },
   },
   {

@@ -8,6 +8,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const cors_1 = __importDefault(require("cors"));
 const userRoutes_1 = __importDefault(require("./src/routes/userRoutes"));
 const subjectRoutes_1 = __importDefault(require("./src/routes/subjectRoutes"));
+const wordRoutes_1 = __importDefault(require("./src/routes/wordRoutes"));
 const db_1 = __importDefault(require("./src/db/db"));
 const errorHandler_1 = require("./src/middleware/errorHandler");
 dotenv_1.default.config();
@@ -20,6 +21,7 @@ app.get("/", (req, res) => {
 });
 app.use("/user", userRoutes_1.default);
 app.use("/subject", subjectRoutes_1.default);
+app.use("/word", wordRoutes_1.default);
 const dbConnection = (0, db_1.default)();
 app.use(errorHandler_1.notFound);
 app.use(errorHandler_1.errorHandler);

@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import userRoutes from "./src/routes/userRoutes";
 import subjectRoutes from "./src/routes/subjectRoutes";
+import wordRoutes from "./src/routes/wordRoutes";
 import dbConnect from "./src/db/db";
 import { errorHandler, notFound } from "./src/middleware/errorHandler";
 dotenv.config();
@@ -18,6 +19,7 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use("/user", userRoutes);
 app.use("/subject", subjectRoutes);
+app.use("/word", wordRoutes);
 
 const dbConnection = dbConnect();
 
