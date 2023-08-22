@@ -1,11 +1,10 @@
 import { NavLink } from "react-router-dom";
-import { logout } from "../api/userAPI";
-import { useEffect, useState } from "react";
-
+import { useAuthSelector } from "../context/authContext";
+import useLogout from "../hooks/useLogout";
 export default function Navbar() {
-  const [user, setUser] = useState(false);
-  const loggedIn = localStorage.getItem("user");
-
+  const { user } = useAuthSelector();
+  console.log(user);
+  const logout = useLogout();
   return (
     <nav className="bg-gray-800 text-white">
       <div
@@ -24,7 +23,7 @@ export default function Navbar() {
             Voca Master
           </NavLink>
         </div>
-        {user ? (
+        {user?.token ? (
           <button onClick={logout}>Logout </button>
         ) : (
           <NavLink

@@ -4,8 +4,9 @@ import {
   HiOutlineLockClosed,
   HiOutlineUser,
 } from "react-icons/hi";
-import { NavLink, useNavigate } from "react-router-dom";
-import { signup } from "../api/userAPI";
+import { NavLink } from "react-router-dom";
+
+import useSignup from "../hooks/useSignup";
 
 export default function Signup() {
   const [email, setEmail] = useState("");
@@ -13,18 +14,13 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate();
+  const signup = useSignup();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      if (password === password2) {
-        await signup({ email, name, password, password2 });
-        navigate("/");
-      } else {
-        setError("Passwords do not match");
-      }
-    } catch (error) {
-      setError(error.response.data.message);
+    if (password === password2) {
+      signup({ email, name, password });
+    } else {
+      setError("Passwords do not match");
     }
   };
   return (

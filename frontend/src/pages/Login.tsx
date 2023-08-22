@@ -1,21 +1,18 @@
 import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { HiOutlineMail, HiOutlineLockClosed } from "react-icons/hi";
-import { login } from "../api/userAPI";
+import useLogin from "../hooks/useLogin";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate();
-  const handleSubmit = async (e) => {
+  const login = useLogin();
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      await login({ email, password });
-      navigate("/");
-    } catch (error) {
-      setError(error.response.data.message);
-    }
+    login({ email, password });
   };
+
   return (
     <div className="bg-slate-700">
       <div className="flex h-screen text-gray-900">
