@@ -12,7 +12,7 @@ const useLogin = () => {
     try {
       const response = await axios.post(baseUrl + "/login", userInfo);
       dispatch({ type: "LOGIN_FULFILLED", payload: response.data });
-      navigate("/study");
+      navigate("/");
     } catch (error) {
       const { errorName, msg } = error.response.data;
       dispatch({ type: "LOGIN_REJECTED", payload: { errorName, msg } });

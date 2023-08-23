@@ -12,7 +12,7 @@ const useSignup = () => {
     try {
       const response = await axios.post(baseUrl + "/", userInfo);
       dispatch({ type: "SIGNUP_FULFILLED", payload: response.data });
-      navigate("/study");
+      navigate("/");
     } catch (error) {
       const { errorName, msg } = error.response.data;
       dispatch({ type: "SIGNUP_REJECTED", payload: { errorName, msg } });

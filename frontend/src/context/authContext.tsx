@@ -50,6 +50,17 @@ const authReducer = (state, { type, payload }) => {
           ? { errorName: payload.errorName, msg: payload.msg }
           : {},
       };
+    case ["PUSH_SUBJECT",
+      "PULL_SUBJECT"].includes(type):
+      const newUser = state.user;
+      newUser.subjects = payload
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        error: {},
+        user: newUser
+      }
     default:
       return { ...state };
   }
