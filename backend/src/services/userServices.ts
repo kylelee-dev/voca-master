@@ -23,6 +23,7 @@ export const registerUser = asyncHandler(
         email: user.email,
         name: user.name,
         token: generateToken(user.id),
+        subjects: user.subjects
       });
     } else {
       res.status(400);
@@ -43,12 +44,25 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
       email: user.email,
       name: user.name,
       token: generateToken(user.id),
+      subjects: user.subjects
     });
   } else {
     res.status(400);
     throw new Error("Invalid Credentials");
   }
 });
+
+export const updateUser = asyncHandler(async (req: Request, res: Response) => {
+  const { _id, name, email, subjects } = req.body
+  // const toUpdate = {}
+  // if (name) toUpdate.name = name;
+  // if (email) toUpdate.email = email;
+  // if (subjects) toUpdate.subjects = subjects
+
+  const user = await User.findOneAndUpdate({ _id }, req.body)
+
+  res.status(200).json(user)
+})
 
 const hashPassword = async (password: string): Promise<string> => {
   const salt: string = await bcrypt.genSalt(10);

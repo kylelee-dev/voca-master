@@ -1,5 +1,5 @@
 import express, { Router } from "express";
-import { loginUser, registerUser } from "../services/userServices";
+import { loginUser, registerUser, updateUser } from "../services/userServices";
 
 const router: Router = express.Router();
 
@@ -8,5 +8,7 @@ router.post("/", registerUser);
 
 // POST user/login
 router.post("/login", loginUser);
+
+router.put("/update", updateUser)
 
 export default router;
