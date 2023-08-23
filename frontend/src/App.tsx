@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import Study from "./pages/Study";
 const Layout = () => {
   return (
     <div className="app">
@@ -31,6 +32,11 @@ const router = createBrowserRouter([
         path: "/login",
         element: <Login />,
       },
+      {
+        path: "/study",
+        element:
+          <Study />
+      }
     ],
   },
 ]);

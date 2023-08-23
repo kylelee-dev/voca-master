@@ -1,10 +1,11 @@
 import { NavLink } from "react-router-dom";
 import { useAuthSelector } from "../context/authContext";
 import useLogout from "../hooks/useLogout";
+import useEmptySubjects from "../hooks/useEmptySubjects";
 export default function Navbar() {
   const { user } = useAuthSelector();
-  console.log(user);
   const logout = useLogout();
+  const emptySubject = useEmptySubjects();
   return (
     <nav className="bg-gray-800 text-white">
       <div
@@ -24,7 +25,10 @@ export default function Navbar() {
           </NavLink>
         </div>
         {user?.token ? (
-          <button onClick={logout}>Logout </button>
+          <button onClick={() => {
+            logout()
+            emptySubject();
+          }}>Logout </button>
         ) : (
           <NavLink
             to="/login"
