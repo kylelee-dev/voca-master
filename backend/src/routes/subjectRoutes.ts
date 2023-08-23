@@ -11,7 +11,7 @@ import {
 const router: Router = express.Router();
 
 // GET ALL SUBJECTS
-router.get("/", getAllSubjects);
+router.get("/getAll/:id", getAllSubjects);
 // GET WORDS FOR A SPECIFIC SUBJECT
 router.get("/:id", getSubject);
 // ADD A NEW SUBJECT

@@ -2,9 +2,13 @@
 
 import { Subject } from "../models/Subject";
 import asyncHandler from "express-async-handler";
+import { User } from "../models/User";
+import { updateUser } from "./userServices";
 
 export const getAllSubjects = asyncHandler(async (req, res) => {
-  const { ids } = req.body;
+  const id = req.params.id;
+  const user = await User.findById(id)
+  const ids = user.subjects
   const records = await Subject.find({ _id: { $in: ids } });
   if (records) {
     res.status(200).json(records);
@@ -26,13 +30,13 @@ export const getSubject = asyncHandler(async (req, res) => {
 });
 
 export const createSubject = asyncHandler(async (req, res) => {
-  const { title, words } = req.body;
+  const { userId, title, words } = req.body;
 
   const subject = await Subject.create({
     title,
     words,
   });
-
+  await User.findByIdAndUpdate(userId, { $push: { subjects: subject.id } });
   if (!subject) {
     res.status(400);
     throw new Error("Invalid Subject Data.");
